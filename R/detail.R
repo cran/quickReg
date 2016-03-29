@@ -13,4 +13,4 @@
 detail <- function(x) UseMethod("detail")
 
 
-
+ 

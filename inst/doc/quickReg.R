@@ -1,4 +1,10 @@
-## ----data----------------------------------------------------------------
+## ----set, echo=FALSE--------------------------------------------------------------------------------------------------------------------------------
+# Change the width of html file
+options(width = 150)
+
+
+## ----data-------------------------------------------------------------------------------------------------------------------------------------------
+
 # If you haven't install the package, you can download it from cran
 
 # install.packages("quickReg")
@@ -6,23 +12,26 @@
 library(quickReg)
 
 # Load the dataset
+
 data(diabetes)
 
 # Show the first 6 rows of the data
+
 head(diabetes)
 
 
-## ----display-------------------------------------------------------------
+## ----display----------------------------------------------------------------------------------------------------------------------------------------
 
 show_data<-display(diabetes)
 
 # We can show the results with indices or just the name of variables
+
 show_data[1:2]
 
 show_data$BMI
 
 
-## ----quickReg------------------------------------------------------------
+## ----quickReg---------------------------------------------------------------------------------------------------------------------------------------
 
 # Apply univariate regression models
 
@@ -54,7 +63,7 @@ display(reg_lm)
 display(reg_coxph)
 
 
-## ----plot,fig.width=8,fig.height=5---------------------------------------
+## ----plot,fig.width=8,fig.height=5------------------------------------------------------------------------------------------------------------------
 
 # `quickReg` package provides forest plot for univariate regression models
 
@@ -66,12 +75,21 @@ plot(reg_glm,limits=c(NA,3))
 plot(reg_glm,limits=c(1,2))
 
 # Sort the variables according to alphabetical
+
 plot(reg_glm,limits=c(NA,3), sort ="alphabetical")
 
 # Similarly, we can plot lm and cox regression results
 
 plot(reg_lm,limits=c(-2,5))
 
-plot(reg_coxph,limits=c(NA,3))
+plot(reg_coxph,limits=c(0.5,2))
+
+# Modify plot.reg like ggplot2, add themes from package `ggthemes` 
+library(ggplot2);library(ggthemes)
+
+plot(reg_coxph,limits=c(0.5,2))+
+  labs(list(title = "Logistic Regression Model", x = "variables"))+
+  theme_classic() %+replace% 
+  theme(legend.position ="none",axis.text.x=element_text(angle=45,size=rel(1.5)))
 
 

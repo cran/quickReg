@@ -23,7 +23,9 @@ Return a concentrated result of univariate regression models.
 reg_glm<-reg(data = diabetes, x=c(1:4),y = 5,
 factor = c(1, 3, 4), model = 'glm')
 
-dataframe(reg_glm,save=FALSE)
+dataframe(reg_glm)
+# dataframe(reg_glm, save = TRUE)
+# dataframe(reg_glm, file = "C:/reg_glm_out.csv")
 }
 \seealso{
 \code{\link{reg}}

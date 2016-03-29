@@ -12,7 +12,7 @@
 
 \item{cuts}{A vector of significance values.}
 
-\item{all_var}{A logical, whether to display all variables at specific p value cut-off, if \code{FALSE}, only display the first ten variables}
+\item{all_var}{A logical, whether to display all variables at specific p value cut-off, if \code{FALSE}, only display the first 10 variables}
 
 \item{\dots}{additional arguments}
 }
@@ -25,6 +25,7 @@ return summary information of univariate regression.
 \examples{
 reg_glm<-reg(data = diabetes, y = 5, factor = c(1, 3, 4), model = 'glm')
 display(reg_glm)
+display(reg_glm, all_var = FALSE)
 }
 \seealso{
 \code{\link{dataframe.reg}},

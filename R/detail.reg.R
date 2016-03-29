@@ -19,4 +19,4 @@ detail.reg <- function(x) {
     }
     result <- x$detail
     return(result)
-}
+} 

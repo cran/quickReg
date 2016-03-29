@@ -10,7 +10,7 @@ reg(data = NULL, x = NULL, y = NULL, factor = NULL, model = NULL,
 \arguments{
 \item{data}{A data.frame}
 
-\item{x}{Column indices of the variables to be included in univariate analysis, the default columns are all the variables except dependent variable}
+\item{x}{Column indices of the variables to be included in univariate analysis, the default columns are all the variables except dependent}
 
 \item{y}{Column indice of dependent variable}
 

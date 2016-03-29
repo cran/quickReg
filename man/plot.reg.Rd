@@ -2,16 +2,16 @@
 % Please edit documentation in R/plot.reg.R
 \name{plot.reg}
 \alias{plot.reg}
-\title{plot the result of univariate regression}
+\title{plot the result of univariate regression result}
 \usage{
 \method{plot}{reg}(x, limits = c(NA, NA), sort = "order", ...)
 }
 \arguments{
 \item{x}{A reg object}
 
-\item{limits}{A numeric vector of length two providing limits of the scale. Use NA to refer to the existing minimum or maximum.}
+\item{limits}{A numeric vector of length two providing limits of the scale. Use NA to refer to the existing minimum or maximum value.}
 
-\item{sort}{A character determining the order of variables  to plot,"alphabetical" or "order". The later is the default to sort varibales according to their effect size.}
+\item{sort}{A character determining the order of variables  to plot,'alphabetical' or 'order'. The later is the default to sort varibales according to their effect size.}
 
 \item{\dots}{additional arguments}
 }
@@ -21,8 +21,9 @@ plot coefficients, OR or HR of univariate regressions.
 \examples{
 reg_glm<-reg(data = diabetes, y = 5, factor = c(1, 3, 4), model = 'glm')
 plot(reg_glm)
+plot(reg_glm, limits = c(NA, 3))
 }
 \seealso{
-\code{\link{reg}},\code{\link{dataframe.reg}}, \code{\link{detail.reg}}
+\code{\link{reg}}, \code{\link{dataframe.reg}},  \code{\link{detail.reg}}
 }
 

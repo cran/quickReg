@@ -15,4 +15,4 @@
 #'
 #' dataframe(reg_coxph,save=FALSE)
 
-dataframe <- function(x, ...) UseMethod("dataframe")
+dataframe <- function(x, ...) UseMethod("dataframe") 

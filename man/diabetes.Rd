@@ -21,7 +21,7 @@
 diabetes
 }
 \description{
-A hypothetical dataset extracting from package `PredictABEL`
+A hypothetical dataset extracted from package `PredictABEL`
 }
 \seealso{
 \code{\link[PredictABEL]{ExampleData}}

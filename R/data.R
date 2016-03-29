@@ -1,6 +1,6 @@
 #' A hypothetical dataset
 #'
-#' A hypothetical dataset extracting from package `PredictABEL`
+#' A hypothetical dataset extracted from package `PredictABEL`
 #'
 #'
 #' @format A data frame with 1000 rows and 14 variables:

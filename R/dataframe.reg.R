@@ -13,9 +13,12 @@
 #' reg_glm<-reg(data = diabetes, x=c(1:4),y = 5,
 #' factor = c(1, 3, 4), model = 'glm')
 #'
-#' dataframe(reg_glm,save=FALSE)
+#' dataframe(reg_glm)
+#' # dataframe(reg_glm, save = TRUE)
+#' # dataframe(reg_glm, file = "C:/reg_glm_out.csv")
 
-dataframe.reg <- function(x, save = FALSE,file = NULL,  sep = ",", row.names = FALSE, ...) {
+dataframe.reg <- function(x, save = FALSE, file = NULL, sep = ",", row.names = FALSE,
+    ...) {
     if (class(x) != "reg") {
         stop("x should be a `reg` object.", call. = FALSE)
     }
@@ -25,8 +28,9 @@ dataframe.reg <- function(x, save = FALSE,file = NULL,  sep = ",", row.names = F
     }
     result <- x$dataframe
 
-    if (save) {
-        write.table(result, file = file, sep = sep, row.names = row.names, ...)
+    if (save||!is.null(file)) {
+        write.table(result, file = file, sep = sep, row.names = row.names,
+            ...)
     }
     return(result)
 }
