@@ -51,7 +51,8 @@ dataframe(reg_glm)
 
 reg_lm<-reg(data = diabetes, x = c(1:6,8:12), y = 7, factor = c(1, 3, 4), model = 'lm')
 
-reg_coxph<-reg(data = diabetes, y = 5, time = 2, factor = c(1, 3, 4), model = 'coxph')
+# Use varible names
+reg_coxph<-reg(data = diabetes, y = "diabetes", time = "age", factor = c("sex", "smoking", "education"), model = 'coxph')
 
 
 # Display could be used to a reg class to summarize univariate models

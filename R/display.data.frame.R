@@ -28,7 +28,7 @@ display.data.frame <- function(x = NULL, col = NULL, normtest = NULL,  useNA = "
     }
     result <- list()
     for (i in col) {
-        split_line <- "==================================================================="
+        split_line <- paste0(rep.int("=",80),collapse = "")
         term <- names(data)[i]
         if (length(unique(data[, i])) >=  discrete_limit && is.numeric(data[,
             i])) {

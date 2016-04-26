@@ -24,13 +24,17 @@ dataframe.reg <- function(x, save = FALSE, file = NULL, sep = ",", row.names = F
     }
     if (is.null(file)) {
         time <- format(Sys.time(), "%Y-%m-%d %H-%M")
-        file <- paste0("reg_", time, ".csv")
+        file_new <- paste0("reg_", time, ".csv")
     }
     result <- x$dataframe
 
-    if (save||!is.null(file)) {
+    if (save) {
+      if (!is.null(file))  {
         write.table(result, file = file, sep = sep, row.names = row.names,
-            ...)
+                    ...)
+        } else write.table(result, file = file_new, sep = sep, row.names = row.names,
+                           ...)
+
     }
     return(result)
 }

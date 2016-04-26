@@ -18,7 +18,3 @@
 #' }
 #' @seealso \code{\link[PredictABEL]{ExampleData}}
 "diabetes"
-
-#' @examples
-#' data(diabetes)
-#' head(diabetes)

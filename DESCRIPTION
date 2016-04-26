@@ -1,7 +1,7 @@
 Package: quickReg
 Title: Build Regression Models Quickly and Display the Results Using
         'ggplot2'
-Version: 0.0.2
+Version: 0.0.3
 Authors@R: person("Xikun", "Han", email = "hanxikun2014@163.com",role = c("aut", "cre"))
 Description: A set of functions to extract results from regression models and
  plot the effect size using 'ggplot2' seamlessly. While 'broom' is useful to
@@ -18,8 +18,8 @@ LazyData: true
 RoxygenNote: 5.0.1
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2016-03-29 11:02:46 UTC; 1159225156
+Packaged: 2016-04-26 00:57:17 UTC; 1159225156
 Author: Xikun Han [aut, cre]
 Maintainer: Xikun Han <hanxikun2014@163.com>
 Repository: CRAN
-Date/Publication: 2016-03-29 13:26:32
+Date/Publication: 2016-04-26 08:44:27

@@ -3,11 +3,11 @@
 #' Apply general linear model, generalized linear model, cox regression model,etc.
 
 #' @param data A data.frame
-#' @param x Column indices of the variables to be included in univariate analysis, the default columns are all the variables except dependent
-#' @param y Column indice of dependent variable
-#' @param factor Column indices of the variables to be treated as factor
+#' @param x Column indices or names of the variables to be included in univariate analysis, the default columns are all the variables except dependent
+#' @param y Column indice of dependent variable or name
+#' @param factor Column indices of the variables or names to be treated as factor
 #' @param model Univariate analysis method, see \code{\link{lm}}, \code{\link{glm}}, \code{\link[survival]{coxph}}
-#' @param time Column indice of survival time, used in cox regression, see \code{\link[survival]{coxph}} for more details
+#' @param time Column indice of survival time or name, used in cox regression, see \code{\link[survival]{coxph}} for more details
 #' @param \dots Further arguments passed to regression model
 #' @return The return result is a list including two componets, the first part is a detailed anaysis result, the second part is a concentrated result in a  data.frame
 #' @importFrom stats binomial confint glm lm
@@ -21,15 +21,20 @@
 #' reg_glm$detail[2:4]
 #' ##  other methods
 #' reg(data = diabetes, x = c(1, 3:6), y = 10, factor = c(1, 3, 4), model = 'lm')
-#' reg(data = diabetes, x = c(1,4, 6), y = 5, time = 2, factor = c(1, 3, 4), model = 'coxph')
+#' reg(data = diabetes, x = c( "sex","education","BMI"), y = "diabetes",
+#' time ="age", factor = c("sex","smoking","education"), model = 'coxph')
 
 
 reg <- function(data = NULL, x = NULL, y = NULL, factor = NULL, model = NULL,
     time = NULL, ...) {
-    stopifnot(is.data.frame(data))
-    if (is.null(y) || length(y) != 1)
-        stop("One dependent varibale should be provided!", call. = FALSE)
-    if (is.null(x))
+  stopifnot(is.data.frame(data))
+  if (is.null(y) || length(y) != 1)
+    stop("One dependent varibale should be provided!", call. = FALSE)
+  if (is.character(x)) x<-match(x,names(data))
+  if (is.character(y)) y<-match(y,names(data))
+  if (is.character(factor)) factor<-match(factor,names(data))
+  if (is.character(time)) time<-match(time,names(data))
+  if (is.null(x))
         x = setdiff(seq_along(1:NCOL(data)), c(y, time))
     if (y %in% x) {
       warning(paste0("Column indice ", y, " have overlap with x, please check it out."),
@@ -37,10 +42,9 @@ reg <- function(data = NULL, x = NULL, y = NULL, factor = NULL, model = NULL,
         x = setdiff(seq_along(1:NCOL(data)), c(y, time))
     }
     if (is.null(factor)) {
-        data <- data
-    } else if (is.numeric(factor)) {
-        data[, factor] <- lapply(data[, factor], factor)
-    } else stop("factor indices should be a numeric vector or NULL!", call. = FALSE)
+      data <- data
+    } else  data[, factor] <- lapply(data[, factor], factor)
+
     if (!(model %in% c("lm", "glm", "coxph")))
         stop("model should be one of `lm`, `glm` or `coxph`.", call. = FALSE)
     arg <- list(...)
@@ -49,7 +53,7 @@ reg <- function(data = NULL, x = NULL, y = NULL, factor = NULL, model = NULL,
 
     result_detail <- result_dataframe <- list()
 
-    split_line <- "==================================================================="
+    split_line <- paste0(rep.int("=",80),collapse = "")
     for (i in x) {
         term <- names(data)[i]
         if (model == "lm") {
@@ -57,7 +61,6 @@ reg <- function(data = NULL, x = NULL, y = NULL, factor = NULL, model = NULL,
             coef <- cbind(fit$coef, suppressMessages(confint(fit)))
             one <- cbind(term, summary(fit)$coefficients, coef)
             result_dataframe <- rbind(result_dataframe, one)
-
             result_detail[[term]] <- list(split_line = split_line, summary = summary(fit))
         } else if (model == "glm") {
             if ("family" %in% names(arg))
@@ -112,13 +115,5 @@ reg <- function(data = NULL, x = NULL, y = NULL, factor = NULL, model = NULL,
     class(result) <- "reg"
     return(result)
 }
-x<-2.5
 
-valid_indice<-function(x) {
-  vapply(x,is.null,logical(1))|vapply(x,is.numeric,logical(1))
-  is.null(x)|is.integer(x)
-}
-valid_indice(NULL)
-is.integer(as.integer(0.2))
-is.integer(1)
-storage.mode(2)
+

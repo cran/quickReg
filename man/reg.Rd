@@ -10,15 +10,15 @@ reg(data = NULL, x = NULL, y = NULL, factor = NULL, model = NULL,
 \arguments{
 \item{data}{A data.frame}
 
-\item{x}{Column indices of the variables to be included in univariate analysis, the default columns are all the variables except dependent}
+\item{x}{Column indices or names of the variables to be included in univariate analysis, the default columns are all the variables except dependent}
 
-\item{y}{Column indice of dependent variable}
+\item{y}{Column indice of dependent variable or name}
 
-\item{factor}{Column indices of the variables to be treated as factor}
+\item{factor}{Column indices of the variables or names to be treated as factor}
 
 \item{model}{Univariate analysis method, see \code{\link{lm}}, \code{\link{glm}}, \code{\link[survival]{coxph}}}
 
-\item{time}{Column indice of survival time, used in cox regression, see \code{\link[survival]{coxph}} for more details}
+\item{time}{Column indice of survival time or name, used in cox regression, see \code{\link[survival]{coxph}} for more details}
 
 \item{\dots}{Further arguments passed to regression model}
 }
@@ -37,6 +37,7 @@ reg_glm[2]
 reg_glm$detail[2:4]
 ##  other methods
 reg(data = diabetes, x = c(1, 3:6), y = 10, factor = c(1, 3, 4), model = 'lm')
-reg(data = diabetes, x = c(1,4, 6), y = 5, time = 2, factor = c(1, 3, 4), model = 'coxph')
+reg(data = diabetes, x = c( "sex","education","BMI"), y = "diabetes",
+time ="age", factor = c("sex","smoking","education"), model = 'coxph')
 }
 

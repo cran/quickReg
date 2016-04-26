@@ -51,7 +51,6 @@ plot.reg <- function(x, limits = c(NA, NA), sort = "order", ...) {
     }
 
     p <- ggplot(data, aes(term, center, ymin = low, ymax = high, color = term)) +
-        geom_abline(intercept = 1, slope = 0, colour = "red", size = 0.1) +
         geom_linerange() + geom_point(size = 1.5, shape = 15) + theme(plot.title = element_text(size = 30),
         axis.text.x = element_text(hjust = 1, vjust = 0, size = 8), legend.position = "none") +
         coord_flip(ylim = limits) + geom_segment(aes(x = term, y = low * beyond2,
@@ -61,8 +60,10 @@ plot.reg <- function(x, limits = c(NA, NA), sort = "order", ...) {
         group = term), arrow = arrow(type = "closed", length = unit(0.15, "inches")),
         na.rm = TRUE)
 
-    p <- switch(x$detail$call$model, lm = p + ylab("coefficients(95%CI)"),
-        glm = p + ylab("OR(95%CI)"), coxph = p + ylab("HR(95%CI)"))
+    p <- switch(x$detail$call$model,
+                lm = p + ylab("coefficients(95%CI)")+geom_abline(intercept = 0, slope = 0, colour = "red", size = 0.1),
+                glm = p + ylab("OR(95%CI)")+geom_abline(intercept = 1, slope = 0, colour = "red", size = 0.1),
+                coxph = p + ylab("HR(95%CI)")+geom_abline(intercept = 1, slope = 0, colour = "red", size = 0.1))
     return(p)
 }
 
