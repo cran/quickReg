@@ -54,18 +54,21 @@ reg <- function(data = NULL, x = NULL, y = NULL, factor = NULL, model = NULL,
     result_detail <- result_dataframe <- list()
 
     split_line <- paste0(rep.int("=",80),collapse = "")
+    y<-unlist(data[,y])
     for (i in x) {
         term <- names(data)[i]
+        x_one<-unlist(data[,i])
+
         if (model == "lm") {
-            fit <- lm(data[, y] ~ data[, i], ...)
+            fit <- lm(y ~ x_one, ...)
             coef <- cbind(fit$coef, suppressMessages(confint(fit)))
             one <- cbind(term, summary(fit)$coefficients, coef)
             result_dataframe <- rbind(result_dataframe, one)
             result_detail[[term]] <- list(split_line = split_line, summary = summary(fit))
         } else if (model == "glm") {
             if ("family" %in% names(arg))
-                fit <- glm(data[, y] ~ data[, i], arg) else {
-                fit <- glm(data[, y] ~ data[, i], family = binomial(link = "logit"),
+                fit <- glm(y ~ x_one, arg) else {
+                fit <- glm(y ~ x_one, family = binomial(link = "logit"),
                   ...)
             }
             coef <- cbind(fit$coef, suppressMessages(confint(fit)))
@@ -76,8 +79,9 @@ reg <- function(data = NULL, x = NULL, y = NULL, factor = NULL, model = NULL,
             result_detail[[term]] <- list(split_line = split_line, summary = summary(fit),
                 `OR(95%CI)` = or)
         } else if (model == "coxph") {
-            fit <- survival::coxph(survival::Surv(data[, time], data[, y]) ~
-                data[, i], ...)
+          time_one<-unlist(data[,time])
+            fit <- survival::coxph(survival::Surv(time = time_one, event =y) ~
+                                     x_one, ...)
             one <- cbind(term, summary(fit)$coefficients, exp(confint(fit)))
             result_dataframe <- rbind(result_dataframe, one)
 
@@ -90,7 +94,7 @@ reg <- function(data = NULL, x = NULL, y = NULL, factor = NULL, model = NULL,
     result_dataframe <- as.data.frame(result_dataframe, stringsAsFactors = FALSE)
     result_dataframe <- result_dataframe[result_dataframe$row.names != "(Intercept)",
         ]
-    result_dataframe$row.names <- sub("data[, i]", "", result_dataframe$row.names,
+    result_dataframe$row.names <- sub("x_one", "", result_dataframe$row.names,
         fixed = TRUE)
     result_dataframe$term <- paste0(result_dataframe$term, result_dataframe$row.names)
     result_dataframe$row.names <- NULL

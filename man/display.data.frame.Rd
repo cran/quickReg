@@ -10,7 +10,7 @@
 \arguments{
 \item{x}{A data.frame}
 
-\item{col}{Column indices of variables in the dataset to display, the default columns are all the variables}
+\item{col}{Column indices or names of the variables in the dataset to display, the default columns are all the variables}
 
 \item{normtest}{A character indicating test of normality, the default method is \code{\link{shapiro.test}} when sample size no more than 5000, otherwise \code{\link[nortest]{lillie.test}}{Kolmogorov-Smirnov} is used, see package \strong{nortest} for more methods.Use 'shapiro.test', 'lillie.test', 'ad.test', etc to specify methods.}
 
