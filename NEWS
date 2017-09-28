@@ -1,3 +1,12 @@
+Version 1.5.0
+-----------------------------------------------------------------------------------------------------
+*  support statistical descriptions that can be used in paper and subgroup analyis
+*  adjust covariates in regression models and subgroup regression analysis
+*  update plot method for regression
+
+
+
+
 Version 1.0.0
 -----------------------------------------------------------------------------------------------------
 *  support variable names or indexes in 'display.data.frame'

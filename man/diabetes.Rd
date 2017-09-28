@@ -14,7 +14,7 @@
   \item BMI: body mass index (kg/cm2)
   \item systolic: systolic blood pressure(mmHg)
   \item diastolic: diastolic blood pressure(mmHg)
-  \item \dots : other genetic informatin, see the \code{\link[PredictABEL]{ExampleData}} in  \code{\link[PredictABEL]{PredictABEL-package}} .
+  \item \dots : other genetic information, see the \code{\link[PredictABEL]{ExampleData}} in  \code{\link[PredictABEL]{PredictABEL-package}} .
 
 }}
 \usage{
@@ -27,4 +27,3 @@ A hypothetical dataset extracted from package `PredictABEL`
 \code{\link[PredictABEL]{ExampleData}}
 }
 \keyword{datasets}
-

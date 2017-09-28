@@ -2,42 +2,39 @@
 % Please edit documentation in R/reg.R
 \name{reg}
 \alias{reg}
-\title{Apply univariate regression models}
+\title{Build regression models}
 \usage{
-reg(data = NULL, x = NULL, y = NULL, factor = NULL, model = NULL,
-  time = NULL, ...)
+reg(data = NULL, x = NULL, y = NULL, group = NULL, cov = NULL,
+  factors = NULL, model = NULL, time = NULL, cov_show = FALSE,
+  confint_glm = "default", group_combine = FALSE)
 }
 \arguments{
-\item{data}{A data.frame}
+\item{data}{A data.frame to build the regression model.}
 
-\item{x}{Column indices or names of the variables to be included in univariate analysis, the default columns are all the variables except dependent}
+\item{x}{Integer column indices or names of the variables to be included in univariate analysis. If \code{NULL}, the default columns are all the variables except `y`, `group`, `time` and `cov`.}
 
-\item{y}{Column indice of dependent variable or name}
+\item{y}{Integer column indice or name of dependent variables, integer or character, allow more than one dependent variables}
 
-\item{factor}{Column indices of the variables or names to be treated as factor}
+\item{group}{Integer column indice or name of subgroup variables.}
 
-\item{model}{Univariate analysis method, see \code{\link{lm}}, \code{\link{glm}}, \code{\link[survival]{coxph}}}
+\item{cov}{Integer column indices or name of covariate variables}
 
-\item{time}{Column indice of survival time or name, used in cox regression, see \code{\link[survival]{coxph}} for more details}
+\item{factors}{Integer column indices or names of variables to be treated as factor}
 
-\item{\dots}{Further arguments passed to regression model}
+\item{model}{regression model, see \code{\link{lm}}, \code{\link{glm}}, \code{\link[survival]{coxph}} for more details}
+
+\item{time}{Integer column indices  or name of survival time, used in cox regression, see \code{\link[survival]{coxph}} for more details}
+
+\item{cov_show}{A logical, whether to create covariates result, default FALSE}
+
+\item{confint_glm}{A character, 'default' or 'profile'. The default method for 'glm' class to compute confidence intervals assumes asymptotic normality \code{\link[stats]{confint}}, you can also use profile likelihood method \code{\link[MASS]{confint.glm}}, but it is pretty slow.
+In this case you could specify 'default' for speed.}
+
+\item{group_combine}{A logical, subgroup analysis for combination of group variables or each group variables. The default is FALSE (subgroup analysis for each group variable)}
 }
 \value{
-The return result is a list including two componets, the first part is a detailed anaysis result, the second part is a concentrated result in a  data.frame
+The return result is a concentrated result in a  data.frame.
 }
 \description{
-Apply general linear model, generalized linear model, cox regression model,etc.
+Build general linear model, logistic regression model, cox regression model with one or more dependent variables. Allow regression based on subgroup variables.
 }
-\examples{
-reg_glm<-reg(data = diabetes, x = c(1:4, 6), y = 5, factor = c(1, 3, 4), model = 'glm')
-##  subset result like a list
-reg_glm$detail
-reg_glm$dataframe
-reg_glm[2]
-reg_glm$detail[2:4]
-##  other methods
-reg(data = diabetes, x = c(1, 3:6), y = 10, factor = c(1, 3, 4), model = 'lm')
-reg(data = diabetes, x = c( "sex","education","BMI"), y = "diabetes",
-time ="age", factor = c("sex","smoking","education"), model = 'coxph')
-}
-
